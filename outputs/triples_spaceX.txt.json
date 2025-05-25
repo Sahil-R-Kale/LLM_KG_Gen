@@ -1,0 +1,37 @@
+[
+  [
+    "Elon_Musk",
+    "CEO",
+    "Tesla"
+  ],
+  [
+    "Elon_Musk",
+    "CEO",
+    "SpaceX"
+  ],
+  [
+    "SpaceX",
+    "partneredWith",
+    "NASA"
+  ],
+  [
+    "SpaceX",
+    "launchProgram",
+    "Artemis_program"
+  ],
+  [
+    "Tesla",
+    "acquired",
+    "Maxwell_Technologies"
+  ],
+  [
+    "NASA",
+    "worksWith",
+    "Boeing"
+  ],
+  [
+    "Boeing",
+    "project",
+    "Orion_project"
+  ]
+]
