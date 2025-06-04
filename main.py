@@ -103,7 +103,8 @@ if __name__ == "__main__":
 
     os.makedirs(output_dir, exist_ok=True)
     filename = os.path.basename(input_path)
-    output_path = os.path.join(output_dir, f"triples_{filename}.json")
+    filename_wo_ext = os.path.splitext(filename)[0]
+    output_path = os.path.join(output_dir, f"triples_{filename_wo_ext}_{args.model}.json")
 
     extractor.process_file(input_path, output_path)
 
