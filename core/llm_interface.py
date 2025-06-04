@@ -31,6 +31,7 @@ def create_message_list(prompt: Prompt):
         messages.extend(prompt.messages)
     if prompt.user_prompt:
         messages.append({"role": "user", "content": prompt.user_prompt})
+    print(messages)
     return messages
 
 def create_and_send_prompt(func):
@@ -59,13 +60,16 @@ def create_and_send_prompt(func):
             anthropic_client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
             system = next((d for d in messages if d.get('role') == 'system'), None)
             messages.remove(system)
-            system_content = system['content']
+            system_content = system['content'] if system else ""
+            kwargs = {}
+            if system_content:
+                kwargs["system"] = system_content
             response = anthropic_client.messages.create(
                 model=model,
-                system=system_content,
                 max_tokens=8096,
                 messages=messages,
                 temperature=temperature,
+                **kwargs
             )
             return LLMResponse(content=response.choices[0].message.content)
 
@@ -74,12 +78,14 @@ def create_and_send_prompt(func):
             genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
             system = next((d for d in messages if d.get('role') == 'system'), None)
             user = next((d for d in messages if d.get('role') == 'user'), None)
-            system_content = system['content']
-            user_content = user['content']
-            model = genai.GenerativeModel(
-                "models/gemini-1.5-flash",
-                system_instruction=system_content
-            )
+            system_content = system['content'] if system else ""
+            user_content = user['content'] if user else ""
+
+            kwargs = {}
+            if system_content:
+                kwargs["system_instruction"] = system_content
+
+            model = genai.GenerativeModel("models/gemini-1.5-flash", **kwargs)
             response = model.generate_content(
                 user_content,
                 generation_config=genai.types.GenerationConfig(
