@@ -42,7 +42,7 @@ Run the tool:
 python main.py --input_path inputs/spaceX.txt --output_dir outputs --visualize
 ```
 
-Output file `outputs/triples_spaceX.txt.json` will contain triples like:
+Output file `outputs/triples_spaceX_gpt-4o.json` will contain triples like:
 
 ```json
 [
