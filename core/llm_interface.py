@@ -59,7 +59,8 @@ def create_and_send_prompt(func):
         elif prompt.model.startswith("claude"):
             anthropic_client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
             system = next((d for d in messages if d.get('role') == 'system'), None)
-            messages.remove(system)
+            if system:
+                messages.remove(system)
             system_content = system['content'] if system else ""
             kwargs = {}
             if system_content:
