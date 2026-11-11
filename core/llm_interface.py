@@ -123,4 +123,6 @@ def create_and_send_prompt(func):
                 temperature=temperature,
             )
             return LLMResponse(content=chat_response.choices[0].message.content)
+
+        raise ValueError(f"Unsupported model: {model}")
     return wrapper
